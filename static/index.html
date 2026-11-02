@@ -142,7 +142,7 @@ function renderAnswer(b, d) {
   if (d.sources.length) {
     const det = el("details"); det.appendChild(el("summary", "", "Sources (" + d.sources.length + ")"));
     const ul = el("ul");
-    d.sources.forEach(s => ul.appendChild(el("li", "", `[${s.id}] ${s.question} — score ${s.score}`)));
+    d.sources.forEach(s => ul.appendChild(el("li", "", `[${s.id}] ${s.question} — handbook p. ${s.page} · score ${s.score}`)));
     det.appendChild(ul); b.appendChild(det);
   }
 }

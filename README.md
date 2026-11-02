@@ -16,13 +16,17 @@ Ticket: Department: Accounts | Category: Payment Reconciliation | Priority: High
 ## Project structure
 
 ```
-streamlit_app.py            Streamlit web app (hosted): Assistant chat page + Fine-tuning results page
+streamlit_app.py            Streamlit web app (hosted): Assistant, Knowledge base (PDF), Fine-tuning pages
+kb_view.py                  Knowledge-base page: every PDF processing step + retrieval explorer
 finetuning_view.py          Fine-tuning page: LoRA vs QLoRA, loss curves, evaluation, sample answers, calculator
-support_rag.py              Knowledge base + TF-IDF retriever + prompt builder + LLM backends
+pdf_ingest.py               PDF ingestion: extract -> clean -> detect sections/topics -> chunk -> parse metadata
+support_rag.py              Index over PDF chunks + TF-IDF retriever + prompt builder + LLM backends
 app.py                      FastAPI service: /ask, /health, /docs (+ HTML chat at /) for API use and Experiment 7 tests
 static/index.html           Chat page served by FastAPI
-data/college_kb.json        Knowledge base: 63 Q&A entries in 30+ categories, each with routing metadata
-tests/                      24 tests: API endpoints + Streamlit pages
+data/college_handbook.pdf   THE KNOWLEDGE BASE: 13-page Student Helpdesk Handbook, 15 sections, 63 topics
+data/build_handbook_pdf.py  Generates the handbook PDF from the authored source data (reportlab)
+data/college_kb.json        Authored source data for the PDF (and for fine-tuning questions); not read by the app
+tests/                      30 tests: PDF ingestion, API endpoints, Streamlit pages
 requirements.txt            Runtime dependencies (what Streamlit Cloud installs)
 requirements-finetune.txt   torch / transformers / peft / bitsandbytes for fine-tuning
 .streamlit/                 Theme config + secrets template (real secrets.toml is git-ignored)
@@ -39,9 +43,13 @@ finetune/
 ## Architecture
 
 ```
+college_handbook.pdf ──► pdf_ingest: extract (pypdf) ─► clean ─► sections/topics ─► 63 chunks + metadata
+                                        │   (once at startup, cached)
+                     Index: word TF-IDF (1-2 grams) + character TF-IDF (3-5 grams) over the chunks
+                                        │
 Streamlit chat / FastAPI /ask ──► validation (1–1000 chars, not blank) ──► rate limit (30/min)
                                         │
-                     Retriever: word + character TF-IDF over college_kb.json (built once, cached)
+                     Retrieve top-3 chunks (score = 0.6·word + 0.4·char cosine similarity)
                                         │
                   best score < MIN_SCORE? ── yes ──► "I don't have enough information…" (no LLM call)
                                         │ no
@@ -49,6 +57,27 @@ Streamlit chat / FastAPI /ask ──► validation (1–1000 chars, not blank) �
                                         │
             answer + grounded flag + ticket {department, category, priority, action} + sources + latency_ms
 ```
+
+| `LLM_BACKEND` | Where the model runs | Notes |
+|---|---|---|
+## Knowledge base: how the PDF is processed
+
+The knowledge base is a single document, `data/college_handbook.pdf`, a 13-page *Student Helpdesk Handbook*. `pdf_ingest.py` processes it at startup. The **📄 Knowledge base (PDF)** page in the app shows every step on the real document: raw vs cleaned text per page, the chunk table, a retrieval explorer with scores, and the exact prompt sent to the LLM.
+
+| Step | What happens | Result on the handbook |
+|---|---|---|
+| 1. Extract | `pypdf` pulls text from each page; PDF metadata (title, edition) is read | 13 pages, about 70 ms |
+| 2. Clean | Running header, footer and page-number lines are removed; the cover and contents pages are detected and discarded | 3 noise lines removed per page; pages 1–2 skipped |
+| 3. Structure | `Section N - …` headings and `[ID] …` topic headings are detected by pattern; line-wraps are joined | 15 sections, 63 topics |
+| 4. Chunk + metadata | One chunk per topic, so a chunk never mixes two policies. Answers over 900 chars would be split with 150-char overlap. The printed *Also asked as* and *Routed to* lines become fields (alternate phrasings, department, category, priority, action), and each chunk keeps its section and page number | 63 chunks, 190–452 chars; all match the source exactly (tested) |
+| 5. Index | Title (twice), alternate phrasings, category and answer are indexed with word and character TF-IDF | built in a few ms |
+| 6. Retrieve | Top-3 chunks above the 0.17 threshold go into the prompt; below it the app says "not enough information" without calling the LLM | sources show `handbook p. N` |
+
+**Why chunk by structure instead of by size?** Splitting the same text every 500 characters gives 87 chunks, and **77 of them mix two different topics**: a hostel fee chunk could carry half of the hostel application rules, and the routing line gets separated from its answer. The Knowledge base page shows this comparison.
+
+To change the knowledge base, edit `data/college_kb.json` and run `python data/build_handbook_pdf.py`, or replace the PDF with one that follows the same layout. Run `python pdf_ingest.py` to see a processing report.
+
+## LLM backends
 
 | `LLM_BACKEND` | Where the model runs | Notes |
 |---|---|---|
@@ -66,7 +95,7 @@ pip install -r requirements-dev.txt
 
 streamlit run streamlit_app.py        # web app      -> http://localhost:8501
 uvicorn app:app --reload              # REST API     -> http://127.0.0.1:8000/docs
-pytest -v                             # 24 tests
+pytest -v                             # 30 tests
 ```
 
 To chat with **your fine-tuned model** locally:

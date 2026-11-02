@@ -49,3 +49,10 @@ def test_finetuning_page_renders():
     at.sidebar.radio[0].set_value("🧪 Fine-tuning (LoRA / QLoRA)").run()
     assert not at.exception
     assert at.title[0].value == "Fine-tuning the LLM (LoRA / QLoRA)"
+
+
+def test_knowledge_base_page_renders():
+    at = AppTest.from_file(APP, default_timeout=30).run()
+    at.sidebar.radio[0].set_value("📄 Knowledge base (PDF)").run()
+    assert not at.exception
+    assert at.title[0].value == "Knowledge base: from PDF to answers"

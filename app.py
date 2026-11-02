@@ -81,6 +81,7 @@ class Source(BaseModel):
     id: str
     question: str
     score: float
+    page: int | None = None  # page of the PDF handbook the chunk came from
 
 
 class AskResponse(BaseModel):

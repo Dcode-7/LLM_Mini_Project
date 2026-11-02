@@ -118,7 +118,7 @@ def render(msg: dict):
         if msg["sources"]:
             with st.expander(f"Sources ({len(msg['sources'])})"):
                 for s in msg["sources"]:
-                    st.markdown(f"- `{s['id']}` {s['question']} — score {s['score']}")
+                    st.markdown(f"- `{s['id']}` {s['question']} — handbook p. {s.get('page', '?')} · score {s['score']}")
 
 
 rag = get_rag()
@@ -127,10 +127,11 @@ st.session_state.setdefault("messages", [])
 with st.sidebar:
     st.header("🎓 Northbridge College")
     st.caption("Fictional sample institution")
-    page = st.radio("Page", ["💬 Assistant", "🧪 Fine-tuning (LoRA / QLoRA)"], label_visibility="collapsed")
+    page = st.radio("Page", ["💬 Assistant", "📄 Knowledge base (PDF)", "🧪 Fine-tuning (LoRA / QLoRA)"],
+                    label_visibility="collapsed")
     st.success(f"Online · backend: **{rag.backend.name}**")
-    st.metric("Knowledge-base entries", len(rag.kb.entries))
-    st.caption(f"KB version {rag.kb.version}")
+    st.metric("Knowledge-base chunks", len(rag.kb.entries))
+    st.caption(f"Source: {rag.kb.report.path.name} · {len(rag.kb.report.pages)} pages · edition {rag.kb.version}")
     if page.startswith("💬"):
         st.subheader("Try asking")
         for s in SUGGESTIONS:
@@ -178,5 +179,9 @@ def finetuning_page():
 
 if page.startswith("💬"):
     assistant_page()
+elif page.startswith("📄"):
+    from kb_view import render_kb
+
+    render_kb(rag)
 else:
     finetuning_page()

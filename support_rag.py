@@ -12,7 +12,6 @@ LLM_BACKEND environment variable without touching the rest of the app:
 
 from __future__ import annotations
 
-import json
 import logging
 import os
 from dataclasses import dataclass
@@ -22,10 +21,13 @@ import httpx
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+from pdf_ingest import IngestReport, ingest
+
 logger = logging.getLogger("support_rag")
 
 BASE_DIR = Path(__file__).resolve().parent
-KB_PATH = Path(os.getenv("KB_PATH", BASE_DIR / "data" / "college_kb.json"))
+# The knowledge base is the PDF handbook; it is ingested (extract -> clean -> chunk) at startup.
+KB_PATH = Path(os.getenv("KB_PATH", BASE_DIR / "data" / "college_handbook.pdf"))
 TOP_K = int(os.getenv("TOP_K", "3"))
 # Below this similarity the question is treated as "not covered by the knowledge base".
 MIN_SCORE = float(os.getenv("MIN_SCORE", "0.17"))
@@ -59,30 +61,35 @@ class BackendError(Exception):
 class Hit:
     entry: dict
     score: float
+    word_score: float = 0.0
+    char_score: float = 0.0
 
 
 class KnowledgeBase:
-    """Loads the Q&A knowledge base once and builds a hybrid word + character TF-IDF index."""
+    """Ingests the PDF handbook once and builds a hybrid word + character TF-IDF index over its chunks."""
 
     def __init__(self, path: Path = KB_PATH):
-        data = json.loads(Path(path).read_text(encoding="utf-8"))
-        self.entries: list[dict] = data["entries"]
-        self.version = data.get("version", "unknown")
-        docs = [
+        self.report: IngestReport = ingest(path)
+        for w in self.report.warnings:
+            logger.warning("pdf_ingest: %s", w)
+        self.entries: list[dict] = [c.as_entry() for c in self.report.chunks]
+        self.version = self.report.metadata.get("Subject", "unknown").rsplit("edition ", 1)[-1]
+        # What gets indexed per chunk: title (x2 for weight) + alternate phrasings + category + answer text
+        self.index_texts = [
             " ".join([e["question"], e["question"], *e.get("alt_questions", []), e["category"], e["answer"]])
             for e in self.entries
         ]
         self.word_vec = TfidfVectorizer(ngram_range=(1, 2), stop_words="english", sublinear_tf=True)
         self.char_vec = TfidfVectorizer(analyzer="char_wb", ngram_range=(3, 5), sublinear_tf=True)
-        self.word_matrix = self.word_vec.fit_transform(docs)
-        self.char_matrix = self.char_vec.fit_transform(docs)
+        self.word_matrix = self.word_vec.fit_transform(self.index_texts)
+        self.char_matrix = self.char_vec.fit_transform(self.index_texts)
 
     def search(self, query: str, k: int = TOP_K) -> list[Hit]:
         word_sim = cosine_similarity(self.word_vec.transform([query]), self.word_matrix)[0]
         char_sim = cosine_similarity(self.char_vec.transform([query]), self.char_matrix)[0]
         scores = 0.6 * word_sim + 0.4 * char_sim
         top = scores.argsort()[::-1][:k]
-        return [Hit(self.entries[i], float(scores[i])) for i in top]
+        return [Hit(self.entries[i], float(scores[i]), float(word_sim[i]), float(char_sim[i])) for i in top]
 
 
 def build_context(hits: list[Hit]) -> str:
@@ -267,7 +274,8 @@ class SupportRAG:
                 "action": e["action"],
             } if grounded else FALLBACK_TICKET,
             "sources": [
-                {"id": h.entry["id"], "question": h.entry["question"], "score": round(h.score, 3)} for h in relevant
+                {"id": h.entry["id"], "question": h.entry["question"], "score": round(h.score, 3),
+                 "page": h.entry["pages"][0]} for h in relevant
             ],
             "top_score": round(best.score, 3),
         }
