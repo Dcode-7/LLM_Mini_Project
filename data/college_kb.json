@@ -1,0 +1,637 @@
+{
+  "college": "Northbridge College of Engineering & Technology (fictional sample institution)",
+  "version": "2026-27",
+  "last_updated": "2026-11-01",
+  "entries": [
+    {
+      "id": "ADM-001",
+      "category": "Admissions",
+      "department": "Admissions Office",
+      "priority": "Medium",
+      "action": "Share admission brochure and eligibility criteria",
+      "question": "What is the eligibility for B.Tech admission?",
+      "alt_questions": ["Who can apply for BTech?", "minimum marks required for engineering admission"],
+      "answer": "Candidates must have passed Class 12 (HSC) with Physics and Mathematics as compulsory subjects plus one of Chemistry, Biology, Biotechnology or Computer Science, with at least 45% aggregate (40% for reserved categories). A valid score in MHT-CET or JEE Main is required. Admission is through the state CAP rounds and the institute-level quota."
+    },
+    {
+      "id": "ADM-002",
+      "category": "Admissions",
+      "department": "Admissions Office",
+      "priority": "Medium",
+      "action": "Guide applicant through online application portal",
+      "question": "How do I apply for admission?",
+      "alt_questions": ["admission process steps", "where is the application form"],
+      "answer": "Register on the admissions portal (admissions.northbridge.edu), fill in the online application form, upload scanned documents, and pay the non-refundable application fee of Rs. 1,000. After the merit list is published, confirm your seat by reporting to the Admissions Office with original documents within the deadline shown on the portal."
+    },
+    {
+      "id": "ADM-003",
+      "category": "Admissions",
+      "department": "Admissions Office",
+      "priority": "High",
+      "action": "Verify document checklist with applicant",
+      "question": "Which documents are required at the time of admission?",
+      "alt_questions": ["document list for admission", "what papers do I need to bring for admission"],
+      "answer": "Bring originals and two attested copies of: Class 10 and 12 mark sheets, CET/JEE score card, School Leaving / Transfer Certificate, domicile certificate, caste certificate and caste validity (if applicable), non-creamy layer certificate (if applicable), income certificate (for fee concession), Aadhaar card, 4 passport-size photographs, and a gap certificate if there is a gap in education."
+    },
+    {
+      "id": "ADM-004",
+      "category": "Admissions",
+      "department": "Admissions Office",
+      "priority": "Medium",
+      "action": "Explain lateral entry process",
+      "question": "Is direct second year (lateral entry) admission available for diploma holders?",
+      "alt_questions": ["DSE admission", "diploma to degree direct second year"],
+      "answer": "Yes. Diploma holders with at least 45% (40% for reserved categories) can join the second year of B.Tech through the Direct Second Year (DSE) CAP process conducted by the state. Up to 10% of intake plus vacancies from first year are available for lateral entry."
+    },
+    {
+      "id": "ADM-005",
+      "category": "Admissions",
+      "department": "Admissions Office",
+      "priority": "Low",
+      "action": "Share list of programmes and intake",
+      "question": "Which courses and branches are offered?",
+      "alt_questions": ["list of branches", "what programmes does the college offer"],
+      "answer": "The college offers B.Tech in Computer Engineering, Information Technology, Artificial Intelligence & Data Science, Electronics & Telecommunication, Mechanical Engineering and Civil Engineering, plus M.Tech in Computer Engineering and VLSI, and an MBA programme. Each B.Tech branch has an intake of 120 except Civil (60)."
+    },
+    {
+      "id": "ADM-006",
+      "category": "Admissions",
+      "department": "Admissions Office",
+      "priority": "High",
+      "action": "Process admission cancellation as per refund policy",
+      "question": "How do I cancel my admission and get a refund?",
+      "alt_questions": ["admission cancellation refund", "withdraw admission"],
+      "answer": "Submit the admission cancellation form at the Admissions Office along with the original fee receipt and a cancelled cheque. If you cancel before the last CAP round cut-off date, the full fee minus a processing charge of Rs. 1,000 is refunded. After that date, refunds follow the state fee regulating authority rules and depend on whether the seat is filled. Refunds are processed within 30 working days."
+    },
+    {
+      "id": "FEE-001",
+      "category": "Fees",
+      "department": "Accounts",
+      "priority": "Medium",
+      "action": "Share current fee structure",
+      "question": "What is the fee structure for B.Tech?",
+      "alt_questions": ["how much is the tuition fee", "annual fees for engineering"],
+      "answer": "For 2026-27 the B.Tech fee is Rs. 1,25,000 per year (tuition Rs. 1,10,000 + development Rs. 15,000). Exam fees of Rs. 1,800 per semester and a one-time caution deposit of Rs. 5,000 (refundable) are charged separately. Hostel and transport fees are extra."
+    },
+    {
+      "id": "FEE-002",
+      "category": "Fees",
+      "department": "Accounts",
+      "priority": "Medium",
+      "action": "Explain online and offline payment options",
+      "question": "How can I pay my college fees?",
+      "alt_questions": ["fee payment methods", "can I pay fees online"],
+      "answer": "Fees can be paid online through the student ERP portal (UPI, net banking, debit/credit card) or by demand draft in favour of 'Northbridge College of Engineering' payable at Pune. Cash is not accepted. Download the e-receipt from the ERP portal after payment."
+    },
+    {
+      "id": "FEE-003",
+      "category": "Payment Reconciliation",
+      "department": "Accounts",
+      "priority": "High",
+      "action": "Verify transaction reference",
+      "question": "My semester fee was deducted but the portal still shows unpaid. What should I do?",
+      "alt_questions": ["fee paid but showing pending", "money debited but fee status not updated", "payment failed but amount deducted"],
+      "answer": "Online payments can take up to 48 hours to reconcile. If the status is still unpaid after 48 hours, email accounts@northbridge.edu with your enrollment number, the transaction reference/UTR number, date, amount and a screenshot of the bank debit. The Accounts team verifies the transaction with the payment gateway and updates your status within 3 working days. If the payment actually failed, the bank auto-reverses the amount within 5-7 working days."
+    },
+    {
+      "id": "FEE-004",
+      "category": "Fees",
+      "department": "Accounts",
+      "priority": "Medium",
+      "action": "Check eligibility for instalment plan",
+      "question": "Can I pay the fees in instalments?",
+      "alt_questions": ["fee instalment facility", "pay fees in parts"],
+      "answer": "Yes. Students can apply for a two-instalment plan by submitting a written request to the Accounts Office before the fee due date. The first instalment (60%) is paid at the start of the year and the second (40%) before 15 January. A late fee applies if the second instalment is delayed."
+    },
+    {
+      "id": "FEE-005",
+      "category": "Fees",
+      "department": "Accounts",
+      "priority": "Medium",
+      "action": "Inform about late fee and waiver request",
+      "question": "What is the late fee for delayed payment?",
+      "alt_questions": ["penalty for late fees", "missed the fee deadline"],
+      "answer": "A late fee of Rs. 50 per day is charged after the due date, up to a maximum of Rs. 5,000. Students with genuine hardship can request a waiver from the Registrar with supporting documents. Unpaid fees can block exam hall tickets and result access."
+    },
+    {
+      "id": "FEE-006",
+      "category": "Fees",
+      "department": "Accounts",
+      "priority": "Low",
+      "action": "Guide student to download fee receipt",
+      "question": "How do I get my fee receipt?",
+      "alt_questions": ["download fee receipt", "duplicate fee receipt"],
+      "answer": "Log in to the student ERP portal, open Fees > Payment History, and click Download Receipt for the relevant transaction. For a stamped duplicate receipt, apply at the Accounts Office window (10 AM - 4 PM) with your ID card."
+    },
+    {
+      "id": "FEE-007",
+      "category": "Fees",
+      "department": "Accounts",
+      "priority": "Low",
+      "action": "Process caution deposit refund",
+      "question": "How do I get my caution deposit back?",
+      "alt_questions": ["caution money refund", "security deposit refund after graduation"],
+      "answer": "The Rs. 5,000 caution deposit is refunded after you graduate or leave the college. Submit the No Dues form signed by the Library, Hostel, Department and Accounts along with a cancelled cheque. The refund is credited to the bank account within 45 days."
+    },
+    {
+      "id": "SCH-001",
+      "category": "Scholarships",
+      "department": "Scholarship Cell",
+      "priority": "Medium",
+      "action": "Share scholarship schemes and portal link",
+      "question": "What scholarships are available?",
+      "alt_questions": ["scholarship options", "financial aid for students"],
+      "answer": "Students can apply for government scholarships on the MahaDBT portal (Post-Matric scholarship, EBC fee reimbursement, Rajarshi Shahu Maharaj scholarship, minority scholarships) and the National Scholarship Portal. The college also offers merit scholarships: 50% tuition waiver for the top 3 rankers of each branch, and need-based aid for family income below Rs. 2.5 lakh per year."
+    },
+    {
+      "id": "SCH-002",
+      "category": "Scholarships",
+      "department": "Scholarship Cell",
+      "priority": "High",
+      "action": "Check application status on MahaDBT and escalate",
+      "question": "My scholarship has not been credited yet. What should I do?",
+      "alt_questions": ["scholarship pending", "scholarship money not received"],
+      "answer": "First check your application status on the MahaDBT / NSP portal. Make sure your bank account is Aadhaar-seeded and DBT-enabled. If the status shows 'Pending at college', contact the Scholarship Cell (Room A-104) with your application ID. If it is pending at the government level, the college cannot speed it up, but the Scholarship Cell can raise a grievance on your behalf."
+    },
+    {
+      "id": "SCH-003",
+      "category": "Scholarships",
+      "department": "Scholarship Cell",
+      "priority": "Medium",
+      "action": "Remind of scholarship deadline",
+      "question": "What is the last date to apply for scholarships?",
+      "alt_questions": ["scholarship deadline", "when to apply for MahaDBT"],
+      "answer": "The MahaDBT portal usually opens in October and closes in January, but dates are set by the government each year. The Scholarship Cell posts the exact dates on the notice board and student ERP. Submit the printed application and documents to the Scholarship Cell within 7 days of online submission."
+    },
+    {
+      "id": "EXM-001",
+      "category": "Examinations",
+      "department": "Examination Cell",
+      "priority": "Medium",
+      "action": "Share examination pattern",
+      "question": "What is the examination and evaluation pattern?",
+      "alt_questions": ["how are marks calculated", "internal and external marks split"],
+      "answer": "Each theory course is evaluated out of 100: 30 marks Continuous Internal Evaluation (two class tests and assignments) and 70 marks End Semester Examination. Labs are evaluated through term work and practical/oral exams. The grading uses a 10-point CGPA scale."
+    },
+    {
+      "id": "EXM-002",
+      "category": "Examinations",
+      "department": "Examination Cell",
+      "priority": "High",
+      "action": "Check fee and attendance status, release hall ticket",
+      "question": "I cannot download my exam hall ticket. What should I do?",
+      "alt_questions": ["hall ticket not generated", "admit card not available"],
+      "answer": "Hall tickets are released on the student ERP portal 7 days before exams. A hall ticket is withheld if fees are pending, attendance is below 75%, or the exam form was not submitted. Clear any dues and visit the Examination Cell (Room B-012) with your ID card; they will verify and release the hall ticket."
+    },
+    {
+      "id": "EXM-003",
+      "category": "Examinations",
+      "department": "Examination Cell",
+      "priority": "Medium",
+      "action": "Explain revaluation procedure",
+      "question": "How do I apply for revaluation or photocopy of my answer sheet?",
+      "alt_questions": ["recheck marks", "revaluation fees"],
+      "answer": "Apply on the ERP portal within 7 days of result declaration. Photocopy of answer sheet costs Rs. 300 per course and revaluation costs Rs. 500 per course. You must request the photocopy first; revaluation can be applied for within 5 days of receiving it. Revised results are published within 30 days."
+    },
+    {
+      "id": "EXM-004",
+      "category": "Examinations",
+      "department": "Examination Cell",
+      "priority": "Medium",
+      "action": "Explain backlog/re-exam process",
+      "question": "How do I clear a backlog (KT) subject?",
+      "alt_questions": ["failed in a subject", "re-exam for failed course", "ATKT rules"],
+      "answer": "Failed courses can be cleared in the supplementary examination held in June/July or in the next regular examination. Fill the backlog exam form on the ERP portal with a fee of Rs. 500 per course. Under ATKT rules you may proceed to the next year with backlogs only if you have not failed more than the permitted number of courses for that year (see the academic rulebook)."
+    },
+    {
+      "id": "EXM-005",
+      "category": "Examinations",
+      "department": "Examination Cell",
+      "priority": "Low",
+      "action": "Share result publication schedule",
+      "question": "When will semester results be declared?",
+      "alt_questions": ["result date", "where to check results"],
+      "answer": "Results are generally declared within 45 days of the last examination and are published on the ERP portal under Examination > Results. Grade cards are distributed by the department about two weeks after declaration."
+    },
+    {
+      "id": "EXM-006",
+      "category": "Examinations",
+      "department": "Examination Cell",
+      "priority": "High",
+      "action": "Process medical re-exam request",
+      "question": "I missed an exam due to illness. Can I appear again?",
+      "alt_questions": ["missed exam medical reason", "absent for exam because sick"],
+      "answer": "For a missed class test, submit a medical certificate to your department within 3 days to request a re-test. For a missed end-semester exam, there is no separate re-exam; you appear in the supplementary exam. With a valid medical certificate from a registered doctor submitted within 7 days, the Examination Cell waives the backlog exam fee."
+    },
+    {
+      "id": "EXM-007",
+      "category": "Examinations",
+      "department": "Examination Cell",
+      "priority": "Low",
+      "action": "Explain CGPA to percentage conversion",
+      "question": "How do I convert CGPA to percentage?",
+      "alt_questions": ["CGPA conversion formula", "percentage from CGPA"],
+      "answer": "As per the affiliating university rule, Percentage = (CGPA - 0.75) x 10. For example, a CGPA of 8.25 equals 75%. The Examination Cell can issue an official conversion certificate on request."
+    },
+    {
+      "id": "ACD-001",
+      "category": "Attendance",
+      "department": "Academic Office",
+      "priority": "High",
+      "action": "Warn student about attendance shortage",
+      "question": "What is the minimum attendance requirement?",
+      "alt_questions": ["attendance rule", "how much attendance is compulsory"],
+      "answer": "Students must have at least 75% attendance in each course (theory and lab separately) to be eligible for the end-semester exam. Attendance shortage up to 10% may be condoned by the Principal for documented medical reasons or approved college activities."
+    },
+    {
+      "id": "ACD-002",
+      "category": "Attendance",
+      "department": "Academic Office",
+      "priority": "Medium",
+      "action": "Process duty leave for approved activity",
+      "question": "How do I get attendance for participating in events or competitions?",
+      "alt_questions": ["duty leave", "on-duty attendance for hackathon"],
+      "answer": "Apply for Duty Leave (OD) through your class teacher before the event, attaching the invitation/registration proof. After the event, submit the participation certificate within 5 days. Approved OD days are counted as present."
+    },
+    {
+      "id": "ACD-003",
+      "category": "Academic Calendar",
+      "department": "Academic Office",
+      "priority": "Low",
+      "action": "Share academic calendar",
+      "question": "Where can I find the academic calendar?",
+      "alt_questions": ["semester start date", "holiday list", "when do classes start"],
+      "answer": "The academic calendar is on the college website under Academics > Calendar and on the ERP dashboard. For 2026-27, the odd semester runs from 1 August to 5 December and the even semester from 5 January to 20 May. Winter break is 20 December to 4 January."
+    },
+    {
+      "id": "ACD-004",
+      "category": "Courses",
+      "department": "Academic Office",
+      "priority": "Medium",
+      "action": "Guide student on elective registration",
+      "question": "How do I choose my elective subjects?",
+      "alt_questions": ["elective selection", "register for open elective"],
+      "answer": "Elective registration opens on the ERP portal two weeks before the semester. Choose your preferences in order; seats are allotted on a first-come, CGPA-based basis. Each elective needs at least 20 students to run. Changes are allowed only in the first week of the semester with the HoD's approval."
+    },
+    {
+      "id": "ACD-005",
+      "category": "Courses",
+      "department": "Academic Office",
+      "priority": "Medium",
+      "action": "Explain branch change policy",
+      "question": "Can I change my branch after first year?",
+      "alt_questions": ["branch transfer", "switch from mechanical to computer"],
+      "answer": "Branch change is allowed only after the first year, based on first-year CGPA (minimum 7.5, no backlogs) and availability of vacant seats in the requested branch. Applications open in July on the ERP portal. Branch change is not allowed for lateral entry students."
+    },
+    {
+      "id": "ACD-006",
+      "category": "Projects & Internships",
+      "department": "Academic Office",
+      "priority": "Medium",
+      "action": "Share internship credit rules",
+      "question": "Is an internship compulsory?",
+      "alt_questions": ["internship credits", "mandatory internship rule"],
+      "answer": "Yes. Every B.Tech student must complete an internship of at least 8 weeks (can be split into two 4-week internships) before the end of the seventh semester. It carries 4 credits. Submit the offer letter, completion certificate and report to your department's internship coordinator."
+    },
+    {
+      "id": "ACD-007",
+      "category": "Academic Grievance",
+      "department": "Academic Office",
+      "priority": "Medium",
+      "action": "Guide student to mentor and HoD",
+      "question": "Who is my mentor and how do I contact them?",
+      "alt_questions": ["faculty mentor", "class advisor contact"],
+      "answer": "Every student is assigned a faculty mentor for the full programme. Your mentor's name and email are shown on the ERP dashboard under My Profile > Mentor. Mentor meetings happen at least twice a semester; you can also book a slot by email."
+    },
+    {
+      "id": "LIB-001",
+      "category": "Library",
+      "department": "Library",
+      "priority": "Low",
+      "action": "Share library timings",
+      "question": "What are the library timings?",
+      "alt_questions": ["library opening hours", "is library open on Sunday"],
+      "answer": "The central library is open 8 AM to 9 PM on weekdays and 9 AM to 5 PM on Saturdays. During exam periods it stays open until 11 PM and on Sundays from 9 AM to 5 PM. The reading hall is open 24x7 during exam weeks."
+    },
+    {
+      "id": "LIB-002",
+      "category": "Library",
+      "department": "Library",
+      "priority": "Low",
+      "action": "Explain borrowing rules",
+      "question": "How many books can I borrow and for how long?",
+      "alt_questions": ["book issue limit", "library borrowing period"],
+      "answer": "UG students can borrow up to 4 books for 14 days; PG students up to 6 books for 21 days. Books can be renewed twice online through the library OPAC if there is no reservation. Reference books and journals cannot be taken out."
+    },
+    {
+      "id": "LIB-003",
+      "category": "Library",
+      "department": "Library",
+      "priority": "Medium",
+      "action": "Calculate fine and replacement procedure",
+      "question": "What is the fine for late return or a lost book?",
+      "alt_questions": ["library fine", "I lost a library book"],
+      "answer": "The overdue fine is Rs. 2 per day per book. For a lost book, you must replace it with the same or latest edition, or pay twice the current price of the book plus a processing fee of Rs. 100. Report the loss to the circulation desk as soon as possible to stop the fine from increasing."
+    },
+    {
+      "id": "LIB-004",
+      "category": "Library",
+      "department": "Library",
+      "priority": "Low",
+      "action": "Share e-resource access steps",
+      "question": "How do I access e-books and IEEE journals from home?",
+      "alt_questions": ["remote access to e-resources", "digital library login"],
+      "answer": "The college subscribes to IEEE Xplore, ScienceDirect, Springer, NPTEL and DELNET. Use the remote access portal (elib.northbridge.edu) with your college email ID. On campus, access is automatic over the college Wi-Fi."
+    },
+    {
+      "id": "HOS-001",
+      "category": "Hostel",
+      "department": "Hostel Office",
+      "priority": "Medium",
+      "action": "Share hostel availability and fees",
+      "question": "Is hostel accommodation available and what does it cost?",
+      "alt_questions": ["hostel fees", "hostel facilities"],
+      "answer": "Separate hostels are available for boys (400 seats) and girls (300 seats). The 2026-27 hostel fee is Rs. 75,000 per year for a triple-sharing room and Rs. 90,000 for double-sharing, including mess charges (4 meals a day), Wi-Fi, laundry and 24x7 security. Allotment is based on distance from home and merit."
+    },
+    {
+      "id": "HOS-002",
+      "category": "Hostel",
+      "department": "Hostel Office",
+      "priority": "Medium",
+      "action": "Guide student through hostel application",
+      "question": "How do I apply for the hostel?",
+      "alt_questions": ["hostel admission process", "hostel allotment"],
+      "answer": "Apply through the ERP portal under Hostel > New Application within 7 days of confirming admission. Upload a medical fitness certificate, parent consent form and two photographs. The allotment list is published within 10 days; pay the hostel fee within 5 days of allotment to keep the room."
+    },
+    {
+      "id": "HOS-003",
+      "category": "Hostel",
+      "department": "Hostel Office",
+      "priority": "Low",
+      "action": "Remind hostel rules",
+      "question": "What are the hostel in-time and leave rules?",
+      "alt_questions": ["hostel curfew", "going home on weekend from hostel"],
+      "answer": "Hostel in-time is 9:30 PM for all residents. For overnight leave or going home, submit a leave request on the hostel app with parent approval at least one day in advance. Late entry without permission is recorded and repeated violations are reported to parents."
+    },
+    {
+      "id": "HOS-004",
+      "category": "Hostel Maintenance",
+      "department": "Hostel Office",
+      "priority": "High",
+      "action": "Raise maintenance ticket with warden",
+      "question": "There is a problem with water, electricity or furniture in my hostel room. Whom should I contact?",
+      "alt_questions": ["hostel room repair", "fan not working in hostel", "hostel complaint"],
+      "answer": "Raise a maintenance complaint on the hostel app or in the complaint register at the warden's office. Electrical and plumbing issues are attended within 24 hours; furniture within 3 days. For emergencies (no water, power failure, safety issues) call the hostel warden helpline at extension 2200 immediately."
+    },
+    {
+      "id": "HOS-005",
+      "category": "Hostel",
+      "department": "Hostel Office",
+      "priority": "Low",
+      "action": "Share mess feedback process",
+      "question": "How can I give feedback about mess food?",
+      "alt_questions": ["mess food complaint", "hostel food quality"],
+      "answer": "A mess committee with student representatives meets every month. Submit feedback on the hostel app or in the mess feedback register. Hygiene or food-safety issues should be reported to the warden immediately."
+    },
+    {
+      "id": "PLC-001",
+      "category": "Placements",
+      "department": "Training & Placement Cell",
+      "priority": "Medium",
+      "action": "Share placement eligibility rules",
+      "question": "What is the eligibility for campus placements?",
+      "alt_questions": ["placement criteria", "who can sit for placements"],
+      "answer": "Final-year students who have registered with the Training & Placement Cell are eligible. Most companies require a minimum CGPA of 6.5 and no active backlogs at the time of the drive. Students who accept one offer can apply only to 'dream' companies offering at least 1.5 times their current package."
+    },
+    {
+      "id": "PLC-002",
+      "category": "Placements",
+      "department": "Training & Placement Cell",
+      "priority": "Medium",
+      "action": "Guide student to T&P registration",
+      "question": "How do I register for placements?",
+      "alt_questions": ["placement registration", "T&P portal sign up"],
+      "answer": "Register on the T&P portal (placements.northbridge.edu) at the start of the seventh semester. Upload your resume, mark sheets and a photograph, and pay the registration fee of Rs. 500. Drive notifications are sent via email and the portal; check them daily."
+    },
+    {
+      "id": "PLC-003",
+      "category": "Placements",
+      "department": "Training & Placement Cell",
+      "priority": "Low",
+      "action": "Share placement statistics",
+      "question": "What were the placement statistics last year?",
+      "alt_questions": ["highest package", "average package", "companies that visited"],
+      "answer": "For the 2025-26 batch, 86% of eligible students were placed. The highest package was Rs. 32 LPA, the average was Rs. 6.8 LPA, and 140 companies visited, including TCS, Infosys, Accenture, Persistent, Bosch, L&T and several product startups."
+    },
+    {
+      "id": "PLC-004",
+      "category": "Training",
+      "department": "Training & Placement Cell",
+      "priority": "Low",
+      "action": "Share training programme schedule",
+      "question": "Does the college provide placement training?",
+      "alt_questions": ["aptitude training", "mock interviews", "soft skills training"],
+      "answer": "Yes. The T&P Cell runs aptitude, coding and soft-skills training from the fifth semester, plus mock interviews and resume reviews in the seventh semester. Sessions are held on Saturdays and are mandatory for students who want to sit for placements."
+    },
+    {
+      "id": "IT-001",
+      "category": "IT Support",
+      "department": "IT Services",
+      "priority": "Medium",
+      "action": "Reset ERP password",
+      "question": "I forgot my ERP portal password. How do I reset it?",
+      "alt_questions": ["cannot log in to ERP", "student portal password reset"],
+      "answer": "Click 'Forgot Password' on the ERP login page and enter your enrollment number; a reset link is sent to your registered college email. If you no longer have access to the email, visit the IT Help Desk (Room C-201) with your ID card or email ithelpdesk@northbridge.edu from your personal email with a photo of your ID card."
+    },
+    {
+      "id": "IT-002",
+      "category": "IT Support",
+      "department": "IT Services",
+      "priority": "Low",
+      "action": "Share Wi-Fi registration steps",
+      "question": "How do I connect to the campus Wi-Fi?",
+      "alt_questions": ["wifi login", "internet access on campus"],
+      "answer": "Connect to the 'NB-Student' network and log in with your college email ID and ERP password. Each student can register up to 2 devices. If you cannot connect, forget the network and reconnect, or visit the IT Help Desk."
+    },
+    {
+      "id": "IT-003",
+      "category": "IT Support",
+      "department": "IT Services",
+      "priority": "Low",
+      "action": "Explain college email and software licences",
+      "question": "How do I get my college email ID and free software like Microsoft Office?",
+      "alt_questions": ["student email account", "free MATLAB license", "Office 365 for students"],
+      "answer": "Your college email (enrollmentnumber@student.northbridge.edu) is created within a week of admission; the initial password is sent to your registered mobile number. With it you get free Microsoft 365, Google Workspace, GitHub Student Developer Pack eligibility and campus licences for MATLAB and AutoCAD."
+    },
+    {
+      "id": "TRN-001",
+      "category": "Transport",
+      "department": "Transport Office",
+      "priority": "Low",
+      "action": "Share bus routes and pass fee",
+      "question": "Does the college provide bus facility?",
+      "alt_questions": ["college bus routes", "bus pass fees"],
+      "answer": "Yes. College buses run on 12 routes across the city. The annual bus pass costs Rs. 18,000 to Rs. 24,000 depending on the route distance. Apply on the ERP portal under Transport; route maps and timings are on the college website."
+    },
+    {
+      "id": "TRN-002",
+      "category": "Transport",
+      "department": "Transport Office",
+      "priority": "Low",
+      "action": "Guide student for student concession pass",
+      "question": "How do I get a railway or bus concession pass?",
+      "alt_questions": ["railway concession form", "student travel concession"],
+      "answer": "Collect the railway/state transport concession form from the Student Section after filling the request on the ERP portal. It is issued within 2 working days with the college stamp. You need a valid college ID card."
+    },
+    {
+      "id": "CRT-001",
+      "category": "Certificates",
+      "department": "Registrar Office",
+      "priority": "Medium",
+      "action": "Issue bonafide certificate",
+      "question": "How do I get a bonafide certificate?",
+      "alt_questions": ["bonafide letter", "student certificate for passport or bank"],
+      "answer": "Apply on the ERP portal under Student Services > Bonafide Certificate, mentioning the purpose (bank loan, passport, scholarship, etc.). The fee is Rs. 50. The certificate is ready for collection at the Student Section within 2 working days."
+    },
+    {
+      "id": "CRT-002",
+      "category": "Certificates",
+      "department": "Registrar Office",
+      "priority": "High",
+      "action": "Process transcript request",
+      "question": "How do I apply for official transcripts?",
+      "alt_questions": ["transcript for higher studies abroad", "WES transcripts"],
+      "answer": "Apply on the ERP portal under Student Services > Transcripts. The fee is Rs. 1,000 for the first set and Rs. 300 for each additional set. Transcripts are issued in sealed envelopes within 10 working days. For WES/ECA, mention the reference number and the college will courier them directly (courier charges extra)."
+    },
+    {
+      "id": "CRT-003",
+      "category": "Certificates",
+      "department": "Registrar Office",
+      "priority": "Medium",
+      "action": "Process leaving certificate after no dues",
+      "question": "How do I get my Leaving Certificate (LC) or Transfer Certificate?",
+      "alt_questions": ["TC after graduation", "school leaving certificate from college"],
+      "answer": "Submit the No Dues form signed by all departments and the LC application at the Registrar Office. The LC is issued within 5 working days. Original documents submitted at admission are returned along with it."
+    },
+    {
+      "id": "CRT-004",
+      "category": "Certificates",
+      "department": "Registrar Office",
+      "priority": "High",
+      "action": "Process duplicate ID card or mark sheet",
+      "question": "I lost my ID card or mark sheet. How do I get a duplicate?",
+      "alt_questions": ["duplicate ID card", "lost grade card"],
+      "answer": "For a duplicate ID card, apply at the Student Section with a Rs. 200 fee; it is issued in 3 days. For a duplicate mark sheet, submit a police complaint/lost report copy, an affidavit on Rs. 100 stamp paper and a fee of Rs. 500 per mark sheet at the Examination Cell; it takes about 15 working days."
+    },
+    {
+      "id": "CRT-005",
+      "category": "Certificates",
+      "department": "Registrar Office",
+      "priority": "Medium",
+      "action": "Share convocation and degree certificate details",
+      "question": "When and how will I receive my degree certificate?",
+      "alt_questions": ["convocation date", "degree certificate collection"],
+      "answer": "Degree certificates are awarded by the affiliating university at the annual convocation, usually held in February-March. Register for convocation on the university portal when notified. Students who do not attend can collect the degree certificate from the Registrar Office afterwards."
+    },
+    {
+      "id": "WEL-001",
+      "category": "Anti-Ragging",
+      "department": "Student Welfare",
+      "priority": "High",
+      "action": "Escalate immediately to anti-ragging squad",
+      "question": "How do I report ragging?",
+      "alt_questions": ["ragging complaint", "being harassed by seniors"],
+      "answer": "Ragging is a criminal offence and is strictly prohibited on campus. Report it immediately to the Anti-Ragging Squad helpline (extension 1100 / +91-20-5550-1100), any member of the Anti-Ragging Committee, or the national anti-ragging helpline 1800-180-5522 (antiragging.in). Complaints are confidential and action begins within 24 hours."
+    },
+    {
+      "id": "WEL-002",
+      "category": "Grievance",
+      "department": "Student Welfare",
+      "priority": "High",
+      "action": "Register grievance and assign to committee",
+      "question": "How do I submit a complaint or grievance?",
+      "alt_questions": ["student grievance redressal", "complaint against staff"],
+      "answer": "Submit your grievance on the ERP portal under Grievance or drop a written complaint in the grievance box outside the Principal's office. The Student Grievance Redressal Committee acknowledges complaints within 2 working days and resolves them within 15 days. You can escalate unresolved issues to the university ombudsperson."
+    },
+    {
+      "id": "WEL-003",
+      "category": "Counselling",
+      "department": "Student Welfare",
+      "priority": "High",
+      "action": "Connect student with campus counsellor",
+      "question": "Is there a counsellor I can talk to about stress or mental health?",
+      "alt_questions": ["feeling stressed", "mental health support", "student counselling"],
+      "answer": "Yes. A professional counsellor is available free of charge in the Student Wellness Centre (Room A-210), Monday to Saturday, 10 AM to 5 PM. Book a confidential appointment via wellness@northbridge.edu or walk in. If you are in immediate distress, contact the Tele-MANAS helpline 14416 (24x7) or the campus emergency number."
+    },
+    {
+      "id": "WEL-004",
+      "category": "Internal Complaints",
+      "department": "Student Welfare",
+      "priority": "High",
+      "action": "Escalate to Internal Complaints Committee",
+      "question": "How do I report sexual harassment?",
+      "alt_questions": ["ICC complaint", "harassment complaint"],
+      "answer": "Contact the Internal Complaints Committee (ICC) at icc@northbridge.edu or meet the ICC presiding officer in Room A-110. Complaints are handled confidentially under the POSH Act and UGC regulations. Interim relief, such as changing class sections, can be arranged during the inquiry."
+    },
+    {
+      "id": "MED-001",
+      "category": "Medical",
+      "department": "Medical Centre",
+      "priority": "High",
+      "action": "Direct student to medical centre / emergency",
+      "question": "Is there a medical facility on campus?",
+      "alt_questions": ["doctor on campus", "medical emergency", "first aid"],
+      "answer": "The campus Medical Centre near Gate 2 has a doctor from 9 AM to 6 PM and a nurse 24x7. An ambulance is available round the clock (extension 1000). All students are covered by group medical insurance of Rs. 1 lakh per year through the college."
+    },
+    {
+      "id": "SPT-001",
+      "category": "Sports & Clubs",
+      "department": "Sports Office",
+      "priority": "Low",
+      "action": "Share sports facilities",
+      "question": "What sports facilities are available?",
+      "alt_questions": ["gym timings", "sports ground", "indoor games"],
+      "answer": "The campus has a cricket and football ground, basketball and volleyball courts, a badminton hall, table tennis, chess and a gym (6-9 AM and 5-8 PM). Students can join college teams through trials held in August."
+    },
+    {
+      "id": "SPT-002",
+      "category": "Sports & Clubs",
+      "department": "Student Welfare",
+      "priority": "Low",
+      "action": "Share student club list",
+      "question": "How do I join a student club?",
+      "alt_questions": ["technical clubs", "cultural committee", "coding club"],
+      "answer": "Clubs recruit during the Club Fair in the second week of August. Active clubs include the Coding Club, Robotics Club, AI & ML Club, IEEE Student Branch, GDG on Campus, NSS, Drama, Music and Photography. Join via the club's form on the Student Activities page."
+    },
+    {
+      "id": "GEN-001",
+      "category": "General Information",
+      "department": "Front Office",
+      "priority": "Low",
+      "action": "Share college contact details",
+      "question": "What are the college office timings and contact details?",
+      "alt_questions": ["college phone number", "office hours", "college address"],
+      "answer": "The administrative office is open Monday to Saturday, 9:30 AM to 5:30 PM (closed on second and fourth Saturdays). Address: Northbridge College of Engineering & Technology, Hinjewadi Road, Pune 411057. Phone: +91-20-5550-1000. Email: info@northbridge.edu."
+    },
+    {
+      "id": "GEN-002",
+      "category": "General Information",
+      "department": "Front Office",
+      "priority": "Low",
+      "action": "Explain ID card and dress code rules",
+      "question": "Is there a dress code and is the ID card compulsory?",
+      "alt_questions": ["uniform rules", "ID card mandatory"],
+      "answer": "Wearing the college ID card is compulsory on campus. There is no uniform, but students must wear formal clothes on Mondays and for placement activities, and safety shoes and lab coats in workshops and labs."
+    },
+    {
+      "id": "GEN-003",
+      "category": "General Information",
+      "department": "International Relations",
+      "priority": "Medium",
+      "action": "Guide student on semester exchange",
+      "question": "Are there student exchange or study abroad programmes?",
+      "alt_questions": ["semester abroad", "international exchange"],
+      "answer": "The International Relations Office has semester exchange agreements with partner universities in Germany, Japan and Australia. Students with a CGPA of 8.0 or above can apply in their fifth semester. Credits earned abroad are transferred under the credit transfer policy."
+    }
+  ]
+}

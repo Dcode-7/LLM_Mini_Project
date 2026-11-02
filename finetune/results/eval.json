@@ -1,0 +1,67 @@
+{
+  "val_examples": 66,
+  "metrics": {
+    "base": {
+      "token_f1": 0.523,
+      "exact_facts": 0.512,
+      "refusal_acc": 1.0,
+      "ms_per_answer": 2505
+    },
+    "lora": {
+      "token_f1": 0.962,
+      "exact_facts": 0.974,
+      "refusal_acc": 1.0,
+      "ms_per_answer": 8197
+    },
+    "qlora": {
+      "token_f1": 0.975,
+      "exact_facts": 0.984,
+      "refusal_acc": 0.667,
+      "ms_per_answer": 9679
+    }
+  },
+  "samples": [
+    {
+      "question": "minimum marks required for engineering admission",
+      "reference": "Candidates must have passed Class 12 (HSC) with Physics and Mathematics as compulsory subjects plus one of Chemistry, Biology, Biotechnology or Computer Science, with at least 45% aggregate (40% for reserved categories). A valid score in MHT-CET or JEE Main is required. Admission is through the state CAP rounds and the institute-level quota.",
+      "base": "To answer the student's question about minimum marks required for engineering admission, we need to refer to the admissions policy of Northbridge College of Engineering & Technology. According to the provided context, the minimum marks required for engineering admission are:\n\n\"Minimum marks required for engineering admission: 40% for reserved categories.\"\n\nThis indicates that candidates must secure a minimum of 40% in their HSC examinations to be eligible for engineering admission.",
+      "lora": "Candidates must have passed Class 12 (HSC) with Physics and Mathematics as compulsory subjects plus one of Chemistry, Biology, Biotechnology or Computer Science, with at least 45% aggregate (40% for reserved categories). A valid score in MHT-CET or JEE Main is required. Admission is through the state CAP rounds and the institute-level quota.",
+      "qlora": "Candidates must have passed Class 12 (HSC) with Physics and Mathematics as compulsory subjects plus one of Chemistry, Biology, Biotechnology or Computer Science, with at least 45% aggregate (40% for reserved categories). A valid score in MHT-CET or JEE Main is required. Admission is through the state CAP rounds and the institute-level quota."
+    },
+    {
+      "question": "security deposit refund after graduation",
+      "reference": "The Rs. 5,000 caution deposit is refunded after you graduate or leave the college. Submit the No Dues form signed by the Library, Hostel, Department and Accounts along with a cancelled cheque. The refund is credited to the bank account within 45 days.",
+      "base": "The Rs. 5,000 caution deposit is refunded after you graduate or leave the college.",
+      "lora": "The Rs. 5,000 caution deposit is refunded after you graduate or leave the college. Submit the No Dues form signed by the Library, Hostel, Department and Accounts along with a cancelled cheque. The refund is credited to the bank account within 45 days.",
+      "qlora": "The Rs. 5,000 caution deposit is refunded after you graduate or leave the college. Submit the No Dues form signed by the Library, Hostel, Department and Accounts along with a cancelled cheque. The refund is credited to the bank account within 45 days."
+    },
+    {
+      "question": "on-duty attendance for hackathon",
+      "reference": "Apply for Duty Leave (OD) through your class teacher before the event, attaching the invitation/registration proof. After the event, submit the participation certificate within 5 days. Approved OD days are counted as present.",
+      "base": "To participate in an Hackathon, you need to apply for duty leave (OD) through your class teacher before the event. Submit the participation certificate within 5 days after the event. Approved OD days are considered present.",
+      "lora": "Apply for Duty Leave (OD) through your class teacher before the event, attaching the invitation/registration proof. After the event, submit the participation certificate within 5 days. Approved OD days are counted as present.",
+      "qlora": "Apply for Duty Leave (OD) through your class teacher before the event, attaching the invitation/registration proof. After the event, submit the participation certificate within 5 days. Approved OD days are counted as present."
+    },
+    {
+      "question": "going home on weekend from hostel",
+      "reference": "Hostel in-time is 9:30 PM for all residents. For overnight leave or going home, submit a leave request on the hostel app with parent approval at least one day in advance. Late entry without permission is recorded and repeated violations are reported to parents.",
+      "base": "Late entry without permission is recorded and repeated violations are reported to parents.",
+      "lora": "Hostel in-time is 9:30 PM for all residents. For overnight leave or going home, submit a leave request on the hostel app with parent approval at least one day in advance. Late entry without permission is recorded and repeated violations are reported to parents.",
+      "qlora": "Hostel in-time is 9:30 PM for all residents. For overnight leave or going home, submit a leave request on the hostel app with parent approval at least one day in advance. Late entry without permission is recorded and repeated violations are reported to parents."
+    },
+    {
+      "question": "student certificate for passport or bank",
+      "reference": "Apply on the ERP portal under Student Services > Bonafide Certificate, mentioning the purpose (bank loan, passport, scholarship, etc.). The fee is Rs. 50. The certificate is ready for collection at the Student Section within 2 working days.",
+      "base": "To get a bonafide certificate for a passport or bank loan, apply on the ERP portal under Student Services > Bonafide Certificate, mentioning the purpose (bank loan, passport, scholarship, etc.). The fee is Rs. 50. The certificate is ready for collection at the Student Section within 2 working days.",
+      "lora": "Apply on the ERP portal under Student Services > Bonafide Certificate, mentioning the purpose (bank loan, passport, scholarship, etc.). The fee is Rs. 50. The certificate is ready for collection at the Student Section within 2 working days.",
+      "qlora": "Apply on the ERP portal under Student Services > Bonafide Certificate, mentioning the purpose (bank loan, passport, scholarship, etc.). The fee is Rs. 50. The certificate is ready for collection at the Student Section within 2 working days."
+    },
+    {
+      "question": "Recommend a good movie",
+      "reference": "I'm sorry, I don't have enough information in the college knowledge base to answer that. Please contact the college front office at info@northbridge.edu or +91-20-5550-1000.",
+      "base": "I'm sorry, I don't have enough information in the college knowledge base to answer that. Please contact the college front office at info@northbridge.edu or +91-20-5550-1000.",
+      "lora": "I'm sorry, I don't have enough information in the college knowledge base to answer that. Please contact the college front office at info@northbridge.edu or +91-20-5550-1000.",
+      "qlora": "A mess committee with student representatives meets every month. Submit feedback on the hostel app or in the mess feedback register. Hygiene or food-safety issues should be reported to the warden immediately."
+    }
+  ]
+}

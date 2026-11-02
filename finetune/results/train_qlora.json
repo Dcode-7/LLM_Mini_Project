@@ -1,0 +1,166 @@
+{
+  "method": "qlora",
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "config": {
+    "r": 8,
+    "alpha": 16,
+    "dropout": 0.05,
+    "epochs": 3,
+    "lr": 0.0002,
+    "batch_size": 4,
+    "grad_accum": 2,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "quantization": "4-bit NF4 + double quant"
+  },
+  "base_params": 494032768,
+  "trainable_params": 4399104,
+  "trainable_pct": 0.8904,
+  "base_weight_memory_mb": 723.7,
+  "peak_gpu_memory_mb": 5358.9,
+  "adapter_size_mb": 17.64,
+  "train_examples": 148,
+  "val_examples": 66,
+  "train_seconds": 191.2,
+  "final_eval_loss": 0.0477,
+  "train_loss": [
+    {
+      "step": 2,
+      "loss": 0.0555
+    },
+    {
+      "step": 4,
+      "loss": 0.0182
+    },
+    {
+      "step": 6,
+      "loss": 0.0065
+    },
+    {
+      "step": 8,
+      "loss": 0.0009
+    },
+    {
+      "step": 10,
+      "loss": 0.0019
+    },
+    {
+      "step": 12,
+      "loss": 0.003
+    },
+    {
+      "step": 14,
+      "loss": 0.0029
+    },
+    {
+      "step": 16,
+      "loss": 0.0081
+    },
+    {
+      "step": 18,
+      "loss": 0.0047
+    },
+    {
+      "step": 20,
+      "loss": 0.0108
+    },
+    {
+      "step": 22,
+      "loss": 0.0022
+    },
+    {
+      "step": 24,
+      "loss": 0.0008
+    },
+    {
+      "step": 26,
+      "loss": 0.0006
+    },
+    {
+      "step": 28,
+      "loss": 0.0009
+    },
+    {
+      "step": 30,
+      "loss": 0.0038
+    },
+    {
+      "step": 32,
+      "loss": 0.0027
+    },
+    {
+      "step": 34,
+      "loss": 0.0006
+    },
+    {
+      "step": 36,
+      "loss": 0.0005
+    },
+    {
+      "step": 38,
+      "loss": 0.0007
+    },
+    {
+      "step": 40,
+      "loss": 0.0004
+    },
+    {
+      "step": 42,
+      "loss": 0.0003
+    },
+    {
+      "step": 44,
+      "loss": 0.0004
+    },
+    {
+      "step": 46,
+      "loss": 0.0003
+    },
+    {
+      "step": 48,
+      "loss": 0.0005
+    },
+    {
+      "step": 50,
+      "loss": 0.0003
+    },
+    {
+      "step": 52,
+      "loss": 0.0003
+    },
+    {
+      "step": 54,
+      "loss": 0.0002
+    },
+    {
+      "step": 56,
+      "loss": 0.0003
+    }
+  ],
+  "eval_loss": [
+    {
+      "epoch": 1.0,
+      "loss": 0.0507153682410717
+    },
+    {
+      "epoch": 2.0,
+      "loss": 0.047939151525497437
+    },
+    {
+      "epoch": 3.0,
+      "loss": 0.0476851612329483
+    },
+    {
+      "epoch": 3.0,
+      "loss": 0.0476851612329483
+    }
+  ]
+}
