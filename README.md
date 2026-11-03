@@ -23,7 +23,7 @@ pdf_ingest.py               PDF ingestion: extract -> clean -> detect sections/t
 support_rag.py              Index over PDF chunks + TF-IDF retriever + prompt builder + LLM backends
 app.py                      FastAPI service: /ask, /health, /docs (+ HTML chat at /) for API use and Experiment 7 tests
 static/index.html           Chat page served by FastAPI
-data/college_handbook.pdf   THE KNOWLEDGE BASE: 13-page Student Helpdesk Handbook, 15 sections, 63 topics
+data/college_handbook.pdf   THE KNOWLEDGE BASE: 23-page Student Helpdesk Handbook, 15 sections, 121 topics
 data/build_handbook_pdf.py  Generates the handbook PDF from the authored source data (reportlab)
 data/college_kb.json        Authored source data for the PDF (and for fine-tuning questions); not read by the app
 tests/                      30 tests: PDF ingestion, API endpoints, Streamlit pages
@@ -43,7 +43,7 @@ finetune/
 ## Architecture
 
 ```
-college_handbook.pdf ──► pdf_ingest: extract (pypdf) ─► clean ─► sections/topics ─► 63 chunks + metadata
+college_handbook.pdf ──► pdf_ingest: extract (pypdf) ─► clean ─► sections/topics ─► 121 chunks + metadata
                                         │   (once at startup, cached)
                      Index: word TF-IDF (1-2 grams) + character TF-IDF (3-5 grams) over the chunks
                                         │
@@ -62,14 +62,14 @@ Streamlit chat / FastAPI /ask ──► validation (1–1000 chars, not blank) �
 |---|---|---|
 ## Knowledge base: how the PDF is processed
 
-The knowledge base is a single document, `data/college_handbook.pdf`, a 13-page *Student Helpdesk Handbook*. `pdf_ingest.py` processes it at startup. The **Knowledge base (PDF)** page in the app shows every step on the real document: raw vs cleaned text per page, the chunk table, a retrieval explorer with scores, and the exact prompt sent to the LLM.
+The knowledge base is a single document, `data/college_handbook.pdf`, a 23-page *Student Helpdesk Handbook*. `pdf_ingest.py` processes it at startup. The **Knowledge base (PDF)** page in the app shows every step on the real document: raw vs cleaned text per page, the chunk table, a retrieval explorer with scores, and the exact prompt sent to the LLM.
 
 | Step | What happens | Result on the handbook |
 |---|---|---|
-| 1. Extract | `pypdf` pulls text from each page; PDF metadata (title, edition) is read | 13 pages, about 70 ms |
+| 1. Extract | `pypdf` pulls text from each page; PDF metadata (title, edition) is read | 23 pages, about 70 ms |
 | 2. Clean | Running header, footer and page-number lines are removed; the cover and contents pages are detected and discarded | 3 noise lines removed per page; pages 1–2 skipped |
-| 3. Structure | `Section N - …` headings and `[ID] …` topic headings are detected by pattern; line-wraps are joined | 15 sections, 63 topics |
-| 4. Chunk + metadata | One chunk per topic, so a chunk never mixes two policies. Answers over 900 chars would be split with 150-char overlap. The printed *Also asked as* and *Routed to* lines become fields (alternate phrasings, department, category, priority, action), and each chunk keeps its section and page number | 63 chunks, 190–452 chars; all match the source exactly (tested) |
+| 3. Structure | `Section N - …` headings and `[ID] …` topic headings are detected by pattern; line-wraps are joined | 15 sections, 121 topics |
+| 4. Chunk + metadata | One chunk per topic, so a chunk never mixes two policies. Answers over 900 chars would be split with 150-char overlap. The printed *Also asked as* and *Routed to* lines become fields (alternate phrasings, department, category, priority, action), and each chunk keeps its section and page number | 121 chunks, 190–452 chars; all match the source exactly (tested) |
 | 5. Index | Title (twice), alternate phrasings, category and answer are indexed with word and character TF-IDF | built in a few ms |
 | 6. Retrieve | Top-3 chunks above the 0.17 threshold go into the prompt; below it the app says "not enough information" without calling the LLM | sources show `handbook p. N` |
 
@@ -196,7 +196,7 @@ What the numbers show:
 
 | Test case | Expected result | Actual result | Pass/Fail |
 |---|---|---|---|
-| Health endpoint | API reports running | `200 {"status":"ok","backend":"extractive","kb_entries":63}` | Pass |
+| Health endpoint | API reports running | `200 {"status":"ok","backend":"extractive","kb_entries":121}` | Pass |
 | Supported question | Grounded answer | "lost library book" → LIB-003 answer, ticket Library/Medium | Pass |
 | Unsupported question | Insufficient information / fallback | "capital of Australia" → fallback message, `grounded:false` | Pass |
 | Empty question | Validation error | `422 {"error":"invalid_input","detail":["Question must not be empty"]}`; Streamlit shows a warning | Pass |
