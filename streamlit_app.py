@@ -1,7 +1,4 @@
-"""College Support Assistant - Streamlit interface (deployed on Streamlit Community Cloud).
-
-Uses the same RAG pipeline as the FastAPI service (support_rag.py) with the same
-production checks: input validation, controlled errors, logging and latency.
+"""College Support Assistant - Streamlit interface.
 
     streamlit run streamlit_app.py
 """
@@ -17,15 +14,14 @@ import streamlit as st
 
 st.set_page_config(page_title="College Support Assistant", layout="centered")
 
-# Streamlit Cloud stores secrets in st.secrets; expose them as env vars before support_rag reads its settings.
 try:
     for key, value in st.secrets.items():
         if isinstance(value, (str, int, float)):
             os.environ.setdefault(key, str(value))
-except Exception:  # no secrets.toml locally - fall back to .env / environment
+except Exception:
     pass
 
-try:  # python-dotenv is only needed locally; on Streamlit Cloud settings come from st.secrets
+try:
     from dotenv import load_dotenv
 
     load_dotenv()
@@ -53,8 +49,7 @@ logger = logging.getLogger("college_support_streamlit")
 
 @st.cache_resource(show_spinner="Loading knowledge base…")
 def _load_rag(kb_mtime: float) -> SupportRAG:
-    # Built once per server process and shared by all sessions - not per question.
-    # kb_mtime is part of the cache key, so replacing the handbook PDF triggers a rebuild.
+    # kb_mtime in the cache key rebuilds the index when the PDF changes
     return SupportRAG()
 
 
@@ -82,7 +77,6 @@ def rate_limited() -> bool:
 
 
 def ask(rag: SupportRAG, question: str) -> dict:
-    """Returns a chat message dict: either a result or a safe error."""
     request_id = uuid.uuid4().hex[:8]
     start = time.perf_counter()
     try:

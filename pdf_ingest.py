@@ -1,9 +1,6 @@
-"""PDF ingestion for the RAG knowledge base: load -> extract -> clean -> structure -> chunk -> metadata.
+"""PDF ingestion: extract, clean, structure and chunk the handbook.
 
-    python pdf_ingest.py                 # print a processing report for data/college_handbook.pdf
-
-Each step is recorded in an IngestReport so the Streamlit "Knowledge base (PDF)" page can show
-exactly how the document was processed.
+    python pdf_ingest.py
 """
 
 from __future__ import annotations
@@ -15,7 +12,7 @@ from pathlib import Path
 
 from pypdf import PdfReader
 
-# Running header / footer lines printed on every page by the handbook layout
+# header/footer lines repeated on every page
 HEADER_FOOTER_PATTERNS = [
     re.compile(r"^Northbridge College of Engineering & Technology - Student Helpdesk Handbook.*$"),
     re.compile(r"^Page \d+$"),
@@ -27,7 +24,7 @@ ROUTING_RE = re.compile(
     r"(?P<department>.+?)\s*\|\s*Category:\s*(?P<category>.+?)\s*\|\s*"
     r"Priority:\s*(?P<priority>\w+)\s*\|\s*Action:\s*(?P<action>.+)$"
 )
-MAX_CHUNK_CHARS = 900       # answers longer than this are split with overlap
+MAX_CHUNK_CHARS = 900
 CHUNK_OVERLAP_CHARS = 150
 
 
@@ -54,7 +51,6 @@ class Chunk:
     action: str
 
     def as_entry(self) -> dict:
-        """Shape used by the retriever / prompt builder."""
         return {
             "id": self.id, "question": self.title, "alt_questions": self.aliases, "answer": self.text,
             "section": self.section, "pages": self.pages, "department": self.department,
@@ -111,7 +107,6 @@ def split_topic(body: str) -> tuple[str, list[str], str, str]:
 
 
 def window(text: str, size: int = MAX_CHUNK_CHARS, overlap: int = CHUNK_OVERLAP_CHARS) -> list[str]:
-    """Fixed-size character windows with overlap, cut at word boundaries."""
     if len(text) <= size:
         return [text]
     out, start = [], 0
@@ -139,7 +134,6 @@ def ingest(path: Path) -> IngestReport:
         pages.append(PageInfo(i, raw, clean, removed, classify_page(i, clean)))
     t_clean = time.perf_counter()
 
-    # Concatenate content pages, remembering where each page starts so chunks keep page numbers.
     full, page_starts = "", []
     for p in pages:
         if p.status == "content":
@@ -165,7 +159,6 @@ def ingest(path: Path) -> IngestReport:
     chunks, warnings = [], []
     for i, m in enumerate(topics):
         start = m.start()
-        # a topic ends at the next topic or the next section heading, whichever comes first
         end = min([t.start() for t in topics[i + 1:i + 2]] + [o for o, _ in sections if o > start] + [len(full)])
         body = full[m.end():end]
         try:
@@ -200,7 +193,7 @@ def ingest(path: Path) -> IngestReport:
 
 
 def naive_chunks(report: IngestReport, size: int = 500, overlap: int = 100) -> list[str]:
-    """For comparison only: fixed-size chunking of the whole cleaned text, ignoring document structure."""
+    """Fixed-size chunking, used only for comparison."""
     text = _norm(" ".join(p.clean_text for p in report.pages if p.status == "content"))
     return window(text, size, overlap)
 

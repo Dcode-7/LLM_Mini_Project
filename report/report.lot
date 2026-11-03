@@ -1,0 +1,12 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Technologies used}}{3}{table.caption.4}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Result of each ingestion step on the handbook}}{5}{table.caption.7}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Fine-tuning configuration}}{7}{table.caption.11}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Observation table}}{9}{table.caption.17}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces LoRA and QLoRA training results}}{10}{table.caption.20}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Base model vs fine-tuned models}}{11}{table.caption.22}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Sample answers for the held-out question ``going home on weekend from hostel''}}{11}{table.caption.24}%
+\addvspace {10\p@ }

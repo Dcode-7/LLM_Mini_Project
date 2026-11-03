@@ -1,13 +1,6 @@
 """College Support Assistant - RAG pipeline and LLM backends.
 
-The retriever (knowledge base + TF-IDF search + prompt construction) is kept
-separate from the LLM backend so the backend can be swapped through the
-LLM_BACKEND environment variable without touching the rest of the app:
-
-    extractive  - no LLM; returns the best-matching knowledge-base answer (default, no key needed)
-    cloud       - any OpenAI-compatible chat-completions API (Groq, Hugging Face router, OpenRouter, ...)
-    ollama      - a local model served by Ollama (http://localhost:11434)
-    lora        - Qwen2.5-0.5B-Instruct + the LoRA/QLoRA adapter trained in finetune/ (local only)
+LLM_BACKEND: extractive (default), cloud, ollama or lora.
 """
 
 from __future__ import annotations
@@ -26,10 +19,8 @@ from pdf_ingest import IngestReport, ingest
 logger = logging.getLogger("support_rag")
 
 BASE_DIR = Path(__file__).resolve().parent
-# The knowledge base is the PDF handbook; it is ingested (extract -> clean -> chunk) at startup.
 KB_PATH = Path(os.getenv("KB_PATH", BASE_DIR / "data" / "college_handbook.pdf"))
 TOP_K = int(os.getenv("TOP_K", "3"))
-# Below this similarity the question is treated as "not covered by the knowledge base".
 MIN_SCORE = float(os.getenv("MIN_SCORE", "0.17"))
 
 FALLBACK_ANSWER = (
@@ -54,7 +45,7 @@ SYSTEM_PROMPT = (
 
 
 class BackendError(Exception):
-    """Raised when the LLM backend fails. The message is safe to log but never sent to clients."""
+    """LLM backend failure. Logged server-side, never sent to clients."""
 
 
 @dataclass
@@ -66,7 +57,6 @@ class Hit:
 
 
 class KnowledgeBase:
-    """Ingests the PDF handbook once and builds a hybrid word + character TF-IDF index over its chunks."""
 
     def __init__(self, path: Path = KB_PATH):
         self.report: IngestReport = ingest(path)
@@ -74,7 +64,7 @@ class KnowledgeBase:
             logger.warning("pdf_ingest: %s", w)
         self.entries: list[dict] = [c.as_entry() for c in self.report.chunks]
         self.version = self.report.metadata.get("Subject", "unknown").rsplit("edition ", 1)[-1]
-        # What gets indexed per chunk: title (x2 for weight) + alternate phrasings + category + answer text
+        # title counted twice for weight
         self.index_texts = [
             " ".join([e["question"], e["question"], *e.get("alt_questions", []), e["category"], e["answer"]])
             for e in self.entries
@@ -107,11 +97,7 @@ def build_messages(question: str, hits: list[Hit]) -> list[dict]:
     ]
 
 
-# --------------------------------------------------------------------------- backends
-
-
 class ExtractiveBackend:
-    """No-LLM backend: returns the best-matching curated answer. Works on any machine, no key required."""
 
     name = "extractive"
 
@@ -120,7 +106,7 @@ class ExtractiveBackend:
 
 
 class CloudBackend:
-    """OpenAI-compatible /chat/completions API (Groq, Hugging Face router, OpenRouter, Together, ...)."""
+    """Any OpenAI-compatible chat completions API (Groq, OpenRouter, ...)."""
 
     name = "cloud"
 
@@ -152,7 +138,6 @@ class CloudBackend:
         except httpx.HTTPError as exc:
             raise BackendError(f"cloud backend network error: {type(exc).__name__}") from exc
         if resp.status_code != 200:
-            # Status code only - provider error bodies can echo request details.
             raise BackendError(f"cloud backend returned HTTP {resp.status_code}")
         try:
             return resp.json()["choices"][0]["message"]["content"].strip()
@@ -161,7 +146,6 @@ class CloudBackend:
 
 
 class OllamaBackend:
-    """Local model served by Ollama, e.g. `ollama pull qwen2.5:0.5b`."""
 
     name = "ollama"
 
@@ -193,7 +177,6 @@ class OllamaBackend:
 
 
 class LoRABackend:
-    """Base model + LoRA adapter from finetune/train_lora.py. Needs requirements-finetune.txt (local GPU/CPU)."""
 
     name = "lora"
 
@@ -237,11 +220,7 @@ def make_backend(name: str | None = None):
     return BACKENDS[name]()
 
 
-# --------------------------------------------------------------------------- pipeline
-
-
 class SupportRAG:
-    """Retrieve -> (fallback if nothing relevant) -> generate -> attach helpdesk ticket metadata."""
 
     def __init__(self, backend=None, kb: KnowledgeBase | None = None):
         self.kb = kb or KnowledgeBase()

@@ -1,10 +1,6 @@
-"""Generate the Student Helpdesk Handbook PDF - the knowledge base the RAG app reads.
+"""Generate the Student Helpdesk Handbook PDF from college_kb.json.
 
-The Q&A source data (college_kb.json) is authored once and typeset into a realistic
-multi-page PDF: cover page, contents page, running header/footer, numbered sections.
-The app never reads the JSON at runtime - it ingests this PDF (see pdf_ingest.py).
-
-    python data/build_handbook_pdf.py        (needs reportlab: pip install -r requirements-dev.txt)
+    python data/build_handbook_pdf.py
 """
 
 import json

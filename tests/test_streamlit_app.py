@@ -1,4 +1,4 @@
-"""Streamlit UI tests using Streamlit's headless AppTest. Run: pytest -v"""
+"""Streamlit UI tests (AppTest)."""
 
 import os
 from pathlib import Path

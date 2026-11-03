@@ -1,11 +1,6 @@
-"""Build LoRA/QLoRA training data from the college knowledge base.
+"""Build LoRA/QLoRA training data from the knowledge base.
 
-Each example uses the SAME prompt the API sends at inference time (system prompt +
-retrieved context + question), so the adapter learns the college's response behaviour
-(RAG -> current knowledge, LoRA -> specialised behaviour). Off-topic questions are
-paired with the fallback answer so the model learns to refuse instead of inventing.
-
-Split: the last alt_question of every entry is held out for validation.
+The last alt_question of every entry is held out for validation.
 
     python finetune/prepare_dataset.py
 """

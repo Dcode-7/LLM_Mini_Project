@@ -1,4 +1,4 @@
-"""Endpoint tests matching the Experiment 7 testing checklist. Run: pytest -v"""
+"""API endpoint tests."""
 
 import os
 import sys

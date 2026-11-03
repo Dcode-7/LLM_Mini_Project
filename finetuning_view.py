@@ -1,8 +1,4 @@
-"""Streamlit "Fine-tuning" page: shows the LoRA / QLoRA training and evaluation results.
-
-The results are produced offline by finetune/train_lora.py and finetune/evaluate_lora.py and
-committed as small JSON files, so the hosted app needs no torch/GPU to display them.
-"""
+"""Streamlit "Fine-tuning" page: LoRA / QLoRA training and evaluation results."""
 
 import json
 from pathlib import Path
@@ -13,7 +9,7 @@ import streamlit as st
 from finetune.lora_math import lora_params
 
 RESULTS = Path(__file__).resolve().parent / "finetune" / "results"
-SERIES_COLORS = {"LoRA": "#2a78d6", "QLoRA": "#eb6834"}   # fixed categorical order: slot 1, slot 2
+SERIES_COLORS = {"LoRA": "#2a78d6", "QLoRA": "#eb6834"}
 LABELS = {"base": "Base (no fine-tuning)", "lora": "Base + LoRA", "qlora": "Base + QLoRA"}
 
 

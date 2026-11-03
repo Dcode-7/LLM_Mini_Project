@@ -1,4 +1,4 @@
-"""Tests for PDF ingestion: every handbook topic must come out of the PDF intact."""
+"""PDF ingestion tests."""
 
 import json
 import sys
@@ -58,4 +58,4 @@ def test_window_splits_long_text_with_overlap():
     parts = window(text, size=300, overlap=60)
     assert len(parts) > 1
     assert all(len(p) <= 300 for p in parts)
-    assert parts[0].split()[-1] in parts[1]  # overlap carries context across the cut
+    assert parts[0].split()[-1] in parts[1]

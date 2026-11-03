@@ -1,12 +1,6 @@
-"""Compare the base model with base + LoRA and base + QLoRA adapters on the held-out validation set.
+"""Evaluate base vs base + LoRA vs base + QLoRA on the validation set.
 
     python finetune/evaluate_lora.py
-
-Metrics (no extra libraries):
-    token_f1     - word-overlap F1 between the generated and the reference answer (answerable questions)
-    exact_facts  - share of numbers in the reference (fees, days, phone numbers...) reproduced in the answer
-    refusal_acc  - off-topic questions correctly answered with the fallback message
-Writes finetune/results/eval.json (metrics + sample answers) used by the Streamlit "Fine-tuning" tab.
 """
 
 import argparse
@@ -110,7 +104,6 @@ def main():
         gc.collect()
         torch.cuda.empty_cache()
 
-    # Pick a few answerable + off-topic examples for the side-by-side view
     answerable = [i for i, r in enumerate(rows) if r["messages"][-1]["content"] != FALLBACK_ANSWER]
     off_topic = [i for i, r in enumerate(rows) if r["messages"][-1]["content"] == FALLBACK_ANSWER]
     picks = answerable[:: max(1, len(answerable) // (SAMPLE_COUNT - 1))][: SAMPLE_COUNT - 1] + off_topic[:1]

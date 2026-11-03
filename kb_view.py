@@ -15,7 +15,6 @@ def render_kb(rag: SupportRAG):
     kb, rep = rag.kb, rag.kb.report
     st.title("Knowledge base: from PDF to answers")
 
-    # ------------------------------------------------------------------ source
     st.subheader("0 · Source document")
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("Pages", len(rep.pages))
@@ -42,7 +41,6 @@ def render_kb(rag: SupportRAG):
     if rep.warnings:
         st.warning("Ingestion warnings: " + "; ".join(rep.warnings))
 
-    # ------------------------------------------------------------------ extraction & cleaning
     st.subheader("1–2 · Text extraction and cleaning")
     pages_df = pd.DataFrame([{
         "page": p.number, "raw chars": len(p.raw_text), "clean chars": len(p.clean_text),
@@ -59,7 +57,6 @@ def render_kb(rag: SupportRAG):
     if page.removed_lines:
         st.caption("Removed: " + " · ".join(f"`{l}`" for l in page.removed_lines))
 
-    # ------------------------------------------------------------------ chunking
     st.subheader("3–4 · Structure-aware chunking")
     lengths = [len(c.text) for c in rep.chunks]
     c1, c2, c3 = st.columns(3)
@@ -88,7 +85,6 @@ def render_kb(rag: SupportRAG):
 
     with st.expander("Why not fixed-size chunks? Compare with naive 500-character chunking"):
         naive = naive_chunks(rep)
-        # a chunk mixes topics when a new "[ID]" topic starts anywhere after its first character
         mixed = sum(1 for t in naive if any(m.start() > 0 for m in TOPIC_MARK.finditer(t)))
         st.markdown(
             f"Splitting the same cleaned text every 500 characters (100 overlap) gives **{len(naive)} chunks**, and "
@@ -99,7 +95,6 @@ def render_kb(rag: SupportRAG):
         for t in naive[3:5]:
             st.code(t, language=None)
 
-    # ------------------------------------------------------------------ index & retrieval
     st.subheader("5–6 · Index and retrieval explorer")
     st.caption(f"Word vocabulary: {len(kb.word_vec.vocabulary_):,} terms · character n-gram vocabulary: "
                f"{len(kb.char_vec.vocabulary_):,} · score = 0.6 × word + 0.4 × character cosine similarity · "

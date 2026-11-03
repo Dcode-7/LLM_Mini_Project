@@ -1,10 +1,6 @@
-"""College Support Assistant - FastAPI service (Experiment 7).
+"""College Support Assistant - FastAPI service.
 
-Endpoints
-    GET  /         chat web interface
-    GET  /health   liveness check (is the API process running?)
-    POST /ask      ask a question -> grounded answer + helpdesk ticket + latency
-    GET  /docs     interactive API documentation (Swagger UI)
+    uvicorn app:app
 """
 
 from __future__ import annotations
@@ -19,7 +15,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-load_dotenv()  # read .env before support_rag reads its settings
+load_dotenv()
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
@@ -44,7 +40,6 @@ rag: SupportRAG | None = None
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Build the index and backend ONCE at startup, not per request.
     global rag
     rag = SupportRAG()
     yield
@@ -81,7 +76,7 @@ class Source(BaseModel):
     id: str
     question: str
     score: float
-    page: int | None = None  # page of the PDF handbook the chunk came from
+    page: int | None = None
 
 
 class AskResponse(BaseModel):
@@ -92,9 +87,6 @@ class AskResponse(BaseModel):
     sources: list[Source]
     backend: str
     latency_ms: float
-
-
-# --------------------------------------------------------------------------- error handling
 
 
 @app.exception_handler(RequestValidationError)
@@ -117,8 +109,6 @@ async def unhandled_error_handler(request: Request, exc: Exception):
     return JSONResponse(status_code=500, content={"error": "internal_error", "detail": "Something went wrong."})
 
 
-# --------------------------------------------------------------------------- simple per-IP rate limit
-
 _hits: dict[str, deque] = defaultdict(deque)
 
 
@@ -133,12 +123,8 @@ def rate_limited(ip: str) -> bool:
     return False
 
 
-# --------------------------------------------------------------------------- endpoints
-
-
 @app.get("/health")
 def health():
-    """Liveness only: it says the process is up, not that the LLM provider is reachable."""
     return {
         "status": "ok",
         "backend": rag.backend.name if rag else None,
@@ -160,14 +146,12 @@ def ask(body: AskRequest, request: Request):
         result = rag.answer(body.question)
     except BackendError as exc:
         latency = (time.perf_counter() - start) * 1000
-        # Internal reason is logged; the client only sees a generic message.
         logger.error("ask_failed id=%s backend=%s latency_ms=%.1f reason=%s", request_id, rag.backend.name, latency, exc)
         return JSONResponse(
             status_code=503,
             content={"error": "backend_unavailable", "detail": "The answer service is temporarily unavailable. Please try again later.", "request_id": request_id},
         )
     latency = (time.perf_counter() - start) * 1000
-    # Log metadata only - not the question text (may contain personal data).
     logger.info(
         "ask_ok id=%s backend=%s q_len=%d grounded=%s top=%s latency_ms=%.1f",
         request_id, rag.backend.name, len(body.question), result["grounded"],

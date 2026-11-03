@@ -1,14 +1,7 @@
-"""Fine-tune Qwen2.5-0.5B-Instruct on the college helpdesk data with LoRA or QLoRA (Lecture 4).
+"""Fine-tune Qwen2.5-0.5B-Instruct with LoRA or QLoRA.
 
-    # LoRA  (frozen base in bf16/fp16; fp32 on CPU)
-    python finetune/train_lora.py
-
-    # QLoRA (frozen base loaded in 4-bit NF4 + double quantization) - needs an NVIDIA GPU
-    python finetune/train_lora.py --qlora
-
-Run finetune/prepare_dataset.py first. Outputs:
-    finetune/adapters/college-<lora|qlora>/      the adapter only (a few MB) - base model still required
-    finetune/results/train_<lora|qlora>.json      config, parameter counts, loss curve, memory, time
+    python finetune/train_lora.py            # LoRA
+    python finetune/train_lora.py --qlora    # QLoRA (needs an NVIDIA GPU)
 """
 
 import argparse
@@ -74,7 +67,6 @@ def main():
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
 
-    # 1-2. Load the base model (optionally in 4-bit for QLoRA)
     if args.qlora:
         if not cuda:
             raise SystemExit("QLoRA needs a CUDA GPU (bitsandbytes). Use plain LoRA on CPU, or run on Colab.")
@@ -82,9 +74,9 @@ def main():
 
         bnb = BitsAndBytesConfig(
             load_in_4bit=True,
-            bnb_4bit_quant_type="nf4",          # NormalFloat4 - suits normally-distributed weights
-            bnb_4bit_use_double_quant=True,     # quantize the quantization constants too
-            bnb_4bit_compute_dtype=dtype,       # storage precision != computation precision
+            bnb_4bit_quant_type="nf4",
+            bnb_4bit_use_double_quant=True,
+            bnb_4bit_compute_dtype=dtype,
         )
         model = AutoModelForCausalLM.from_pretrained(args.base_model, quantization_config=bnb, device_map={"": 0})
         model = prepare_model_for_kbit_training(model)
@@ -97,7 +89,6 @@ def main():
     base_params = sum(p.numel() * (2 if type(p).__name__ == "Params4bit" else 1) for p in model.parameters())
     base_mem_mb = model.get_memory_footprint() / 1e6
 
-    # 3. Attach LoRA: base weights are frozen, only A and B are trainable
     lora_cfg = LoraConfig(
         r=args.r,
         lora_alpha=args.alpha,
@@ -111,11 +102,9 @@ def main():
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"Base weights in memory: {base_mem_mb:.0f} MB | trainable LoRA params: {trainable:,}")
 
-    # 4. Data
     train_ds = [tokenize(r, tok, args.max_len) for r in load_jsonl(HERE / "data" / "train.jsonl")]
     val_ds = [tokenize(r, tok, args.max_len) for r in load_jsonl(HERE / "data" / "val.jsonl")]
 
-    # 5. Train only the LoRA parameters
     targs = TrainingArguments(
         output_dir=str(HERE / "outputs"),
         num_train_epochs=args.epochs,
@@ -130,7 +119,7 @@ def main():
         save_strategy="no",
         bf16=bf16,
         fp16=cuda and not bf16,
-        optim="paged_adamw_8bit" if args.qlora else "adamw_torch",  # paged optimizer absorbs memory spikes
+        optim="paged_adamw_8bit" if args.qlora else "adamw_torch",
         report_to="none",
     )
     trainer = Trainer(
@@ -145,7 +134,6 @@ def main():
     train_secs = time.time() - t0
     final_eval = trainer.evaluate()
 
-    # 6. Save ONLY the adapter + tokenizer
     model.save_pretrained(output_dir)
     tok.save_pretrained(output_dir)
     adapter_mb = sum(f.stat().st_size for f in output_dir.glob("*.safetensors")) / 1e6
