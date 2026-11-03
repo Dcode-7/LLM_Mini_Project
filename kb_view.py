@@ -28,7 +28,7 @@ def render_kb(rag: SupportRAG):
     c3.metric("Sections", len(rep.sections))
     c4.metric("Chunks indexed", len(rep.chunks))
     st.caption(f"**{rep.path.name}** · title: {rep.metadata.get('Title', '—')} · {rep.metadata.get('Subject', '')}")
-    st.download_button("⬇️ Download the handbook PDF", rep.path.read_bytes(), file_name=rep.path.name,
+    st.download_button("Download the handbook PDF", rep.path.read_bytes(), file_name=rep.path.name,
                        mime="application/pdf")
 
     st.markdown("**Processing pipeline**")
@@ -115,7 +115,7 @@ def render_kb(rag: SupportRAG):
         st.dataframe(pd.DataFrame([{
             "rank": i + 1, "chunk": h.entry["id"], "page": h.entry["pages"][0], "title": h.entry["question"],
             "word score": round(h.word_score, 3), "char score": round(h.char_score, 3),
-            "combined": round(h.score, 3), "used?": "✅" if h.score >= MIN_SCORE else "—",
+            "combined": round(h.score, 3), "used?": "yes" if h.score >= MIN_SCORE else "no",
         } for i, h in enumerate(hits)]), hide_index=True, use_container_width=True)
         relevant = [h for h in hits[:3] if h.score >= MIN_SCORE]
         if not relevant:

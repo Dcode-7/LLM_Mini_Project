@@ -15,7 +15,7 @@ import uuid
 
 import streamlit as st
 
-st.set_page_config(page_title="College Support Assistant", page_icon="🎓", layout="centered")
+st.set_page_config(page_title="College Support Assistant", layout="centered")
 
 # Streamlit Cloud stores secrets in st.secrets; expose them as env vars before support_rag reads its settings.
 try:
@@ -101,7 +101,7 @@ def ask(rag: SupportRAG, question: str) -> dict:
 
 
 def render(msg: dict):
-    with st.chat_message(msg["role"], avatar="🧑‍🎓" if msg["role"] == "user" else "🎓"):
+    with st.chat_message(msg["role"]):
         if msg["role"] == "user":
             st.markdown(msg["content"])
             return
@@ -116,8 +116,8 @@ def render(msg: dict):
             c2.markdown(f"**Priority:** :{PRIORITY_COLOR.get(t['priority'], 'gray')}[{t['priority']}]")
             c1.markdown(f"**Category:** {t['category']}")
             c2.markdown(f"**Action:** {t['action']}")
-        grounded = "✅ grounded in knowledge base" if msg["grounded"] else "⚠️ not in knowledge base"
-        st.caption(f"⏱ {msg['latency_ms']} ms · backend: {msg['backend']} · {grounded}")
+        grounded = "grounded in knowledge base" if msg["grounded"] else "not in knowledge base"
+        st.caption(f"{msg['latency_ms']} ms · backend: {msg['backend']} · {grounded}")
         if msg["sources"]:
             with st.expander(f"Sources ({len(msg['sources'])})"):
                 for s in msg["sources"]:
@@ -128,19 +128,19 @@ rag = get_rag()
 st.session_state.setdefault("messages", [])
 
 with st.sidebar:
-    st.header("🎓 Northbridge College")
+    st.header("Northbridge College")
     st.caption("Fictional sample institution")
-    page = st.radio("Page", ["💬 Assistant", "📄 Knowledge base (PDF)", "🧪 Fine-tuning (LoRA / QLoRA)"],
+    page = st.radio("Page", ["Assistant", "Knowledge base (PDF)", "Fine-tuning (LoRA / QLoRA)"],
                     label_visibility="collapsed")
     st.success(f"Online · backend: **{rag.backend.name}**")
     st.metric("Knowledge-base chunks", len(rag.kb.entries))
     st.caption(f"Source: {rag.kb.report.path.name} · {len(rag.kb.report.pages)} pages · edition {rag.kb.version}")
-    if page.startswith("💬"):
+    if page == "Assistant":
         st.subheader("Try asking")
         for s in SUGGESTIONS:
             if st.button(s, use_container_width=True):
                 st.session_state.pending = s
-        if st.button("🗑️ Clear chat", use_container_width=True):
+        if st.button("Clear chat", use_container_width=True):
             st.session_state.messages = []
             st.rerun()
 
@@ -180,9 +180,9 @@ def finetuning_page():
     render_finetuning()
 
 
-if page.startswith("💬"):
+if page == "Assistant":
     assistant_page()
-elif page.startswith("📄"):
+elif page == "Knowledge base (PDF)":
     from kb_view import render_kb
 
     render_kb(rag)

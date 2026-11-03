@@ -62,7 +62,7 @@ Streamlit chat / FastAPI /ask ──► validation (1–1000 chars, not blank) �
 |---|---|---|
 ## Knowledge base: how the PDF is processed
 
-The knowledge base is a single document, `data/college_handbook.pdf`, a 13-page *Student Helpdesk Handbook*. `pdf_ingest.py` processes it at startup. The **📄 Knowledge base (PDF)** page in the app shows every step on the real document: raw vs cleaned text per page, the chunk table, a retrieval explorer with scores, and the exact prompt sent to the LLM.
+The knowledge base is a single document, `data/college_handbook.pdf`, a 13-page *Student Helpdesk Handbook*. `pdf_ingest.py` processes it at startup. The **Knowledge base (PDF)** page in the app shows every step on the real document: raw vs cleaned text per page, the chunk table, a retrieval explorer with scores, and the exact prompt sent to the LLM.
 
 | Step | What happens | Result on the handbook |
 |---|---|---|

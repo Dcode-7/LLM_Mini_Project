@@ -135,9 +135,9 @@ function renderAnswer(b, d) {
     });
   b.appendChild(t);
   const meta = el("div", "meta");
-  meta.appendChild(el("span", "", "⏱ " + d.latency_ms + " ms"));
+  meta.appendChild(el("span", "", d.latency_ms + " ms"));
   meta.appendChild(el("span", "", "backend: " + d.backend));
-  meta.appendChild(el("span", "", d.grounded ? "✓ grounded in knowledge base" : "⚠ not in knowledge base"));
+  meta.appendChild(el("span", "", d.grounded ? "grounded in knowledge base" : "not in knowledge base"));
   b.appendChild(meta);
   if (d.sources.length) {
     const det = el("details"); det.appendChild(el("summary", "", "Sources (" + d.sources.length + ")"));
