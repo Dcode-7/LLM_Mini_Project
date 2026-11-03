@@ -32,7 +32,7 @@ try:  # python-dotenv is only needed locally; on Streamlit Cloud settings come f
 except ImportError:
     pass
 
-from support_rag import BackendError, SupportRAG  # noqa: E402
+from support_rag import KB_PATH, BackendError, SupportRAG  # noqa: E402
 
 MAX_QUESTION_CHARS = int(os.getenv("MAX_QUESTION_CHARS", "1000"))
 RATE_LIMIT_PER_MINUTE = int(os.getenv("RATE_LIMIT_PER_MINUTE", "30"))
@@ -52,9 +52,14 @@ logger = logging.getLogger("college_support_streamlit")
 
 
 @st.cache_resource(show_spinner="Loading knowledge base…")
-def get_rag() -> SupportRAG:
+def _load_rag(kb_mtime: float) -> SupportRAG:
     # Built once per server process and shared by all sessions - not per question.
+    # kb_mtime is part of the cache key, so replacing the handbook PDF triggers a rebuild.
     return SupportRAG()
+
+
+def get_rag() -> SupportRAG:
+    return _load_rag(KB_PATH.stat().st_mtime)
 
 
 def validate(question: str) -> tuple[str | None, str | None]:
