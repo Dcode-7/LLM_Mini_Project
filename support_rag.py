@@ -112,9 +112,13 @@ class CloudBackend:
 
     def __init__(self):
         self.base_url = os.getenv("LLM_BASE_URL", "https://api.groq.com/openai/v1").rstrip("/")
-        self.model = os.getenv("LLM_MODEL", "llama-3.1-8b-instant")
+        # Groq retired its Llama 3.x models on 2026-08-16; gpt-oss-20b is their recommended replacement
+        self.model = os.getenv("LLM_MODEL", "openai/gpt-oss-20b")
         self.api_key = os.getenv("LLM_API_KEY", "")
         self.timeout = float(os.getenv("LLM_TIMEOUT", "30"))
+        # Reasoning models spend part of this budget on hidden thinking, so keep it well above the answer length
+        self.max_tokens = int(os.getenv("LLM_MAX_TOKENS", "1024"))
+        self.reasoning_effort = os.getenv("LLM_REASONING_EFFORT", "low" if "gpt-oss" in self.model else "")
         self.client = httpx.Client(timeout=self.timeout)
         if not self.api_key:
             logger.warning("LLM_BACKEND=cloud but LLM_API_KEY is not set; requests will fail")
@@ -122,27 +126,38 @@ class CloudBackend:
     def generate(self, question: str, hits: list[Hit]) -> str:
         if not self.api_key:
             raise BackendError("cloud backend has no API key configured")
+        payload = {
+            "model": self.model,
+            "messages": build_messages(question, hits),
+            "temperature": 0.1,
+            "max_tokens": self.max_tokens,
+        }
+        if self.reasoning_effort:
+            payload["reasoning_effort"] = self.reasoning_effort
         try:
             resp = self.client.post(
                 f"{self.base_url}/chat/completions",
                 headers={"Authorization": f"Bearer {self.api_key}"},
-                json={
-                    "model": self.model,
-                    "messages": build_messages(question, hits),
-                    "temperature": 0.1,
-                    "max_tokens": 400,
-                },
+                json=payload,
             )
         except httpx.TimeoutException as exc:
             raise BackendError("cloud backend timed out") from exc
         except httpx.HTTPError as exc:
             raise BackendError(f"cloud backend network error: {type(exc).__name__}") from exc
         if resp.status_code != 200:
-            raise BackendError(f"cloud backend returned HTTP {resp.status_code}")
+            # Log only the provider's short error code (e.g. model_not_found), never the full body
+            try:
+                code = resp.json().get("error", {}).get("code") or "-"
+            except ValueError:
+                code = "-"
+            raise BackendError(f"cloud backend returned HTTP {resp.status_code} code={code} model={self.model}")
         try:
-            return resp.json()["choices"][0]["message"]["content"].strip()
+            content = resp.json()["choices"][0]["message"]["content"]
         except (KeyError, IndexError, ValueError) as exc:
             raise BackendError("cloud backend returned an unexpected response format") from exc
+        if not content or not content.strip():
+            raise BackendError(f"cloud backend returned an empty answer (model={self.model}, raise LLM_MAX_TOKENS)")
+        return content.strip()
 
 
 class OllamaBackend:
