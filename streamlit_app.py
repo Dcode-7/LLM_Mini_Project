@@ -25,9 +25,12 @@ try:
 except Exception:  # no secrets.toml locally - fall back to .env / environment
     pass
 
-from dotenv import load_dotenv
+try:  # python-dotenv is only needed locally; on Streamlit Cloud settings come from st.secrets
+    from dotenv import load_dotenv
 
-load_dotenv()
+    load_dotenv()
+except ImportError:
+    pass
 
 from support_rag import BackendError, SupportRAG  # noqa: E402
 

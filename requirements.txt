@@ -1,8 +1,8 @@
-fastapi==0.115.6
-streamlit==1.41.1
-uvicorn[standard]==0.34.0
-httpx==0.28.1
-scikit-learn==1.6.1
-pypdf==5.1.0
-python-dotenv==1.0.1
-pydantic==2.10.4
+fastapi>=0.115.6
+streamlit>=1.41.1
+uvicorn[standard]>=0.34.0
+httpx>=0.28.1
+scikit-learn>=1.6.1
+pypdf>=5.1.0
+python-dotenv>=1.0.1
+pydantic>=2.10.4
