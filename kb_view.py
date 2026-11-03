@@ -14,11 +14,6 @@ TOPIC_MARK = re.compile(r"\[[A-Z]+-\d{3}\]")
 def render_kb(rag: SupportRAG):
     kb, rep = rag.kb, rag.kb.report
     st.title("Knowledge base: from PDF to answers")
-    st.markdown(
-        "The assistant's knowledge comes from one document, the **Student Helpdesk Handbook** (PDF). "
-        "At startup it is processed by `pdf_ingest.py` and indexed by `support_rag.py`. "
-        "This page shows every step and lets you inspect the result."
-    )
 
     # ------------------------------------------------------------------ source
     st.subheader("0 · Source document")

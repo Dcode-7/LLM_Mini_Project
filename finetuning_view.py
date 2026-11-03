@@ -29,10 +29,7 @@ def _mb(v):
 def render_finetuning():
     st.title("Fine-tuning the LLM (LoRA / QLoRA)")
     st.markdown(
-        "The base model **Qwen2.5-0.5B-Instruct** was fine-tuned on this assistant's own knowledge base "
-        "(`finetune/prepare_dataset.py` turns every Q&A entry and its paraphrases into chat examples that use the "
-        "same RAG prompt as the app, plus off-topic questions that must be refused). The base weights stay **frozen**; "
-        "only the small low-rank matrices **A** and **B** are trained:"
+        "The base weights stay **frozen**; only the small low-rank matrices **A** and **B** are trained:"
     )
     st.latex(r"W' = W_0 + \frac{\alpha}{r}\,BA")
 
