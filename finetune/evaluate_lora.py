@@ -1,8 +1,3 @@
-"""Evaluate base vs base + LoRA vs base + QLoRA on the validation set.
-
-    python finetune/evaluate_lora.py
-"""
-
 import argparse
 import gc
 import json

@@ -1,9 +1,3 @@
-"""Fine-tune Qwen2.5-0.5B-Instruct with LoRA or QLoRA.
-
-    python finetune/train_lora.py            # LoRA
-    python finetune/train_lora.py --qlora    # QLoRA (needs an NVIDIA GPU)
-"""
-
 import argparse
 import json
 import time

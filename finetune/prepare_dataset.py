@@ -1,9 +1,3 @@
-"""Build LoRA/QLoRA training data from the knowledge base.
-
-The last alt_question of every entry is held out for validation.
-
-    python finetune/prepare_dataset.py
-"""
 
 import json
 import random
